@@ -12,6 +12,7 @@ export const todoSlice = createSlice({
       const todo = {
         id: nanoid(),
         textValue: action.payload,
+        complete:false
       };
       state.todos.push(todo);
     },
@@ -25,7 +26,17 @@ export const todoSlice = createSlice({
         todo.textValue = newText;
       }
     },
+    clearTodo: (state) => {
+      state.todos = [];
+    },
+    completeornot:(state,action)=>{
+      const id=action.payload;
+      const todo=state.todos.find((todo)=>todo.id===id);
+      if(todo){
+        todo.complete=!todo.complete
+      }
+    }
   },
 });
-export const { addTodo, removeTodo, updateTodo } = todoSlice.actions;
+export const { addTodo, removeTodo, updateTodo, clearTodo ,completeornot } = todoSlice.actions;
 export default todoSlice.reducer;
